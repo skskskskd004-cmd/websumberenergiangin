@@ -683,8 +683,503 @@ footer a { color: var(--y); }
   .fml-eq { font-size: 1.2rem; }
 }
 </style>
+
+/* ============================================================
+   INTRO SCREEN — Isometric Wind-to-Electric Animation
+   ============================================================ */
+#intro {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #04080f;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: opacity .7s ease, transform .7s ease;
+}
+#intro.exit {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+#intro.gone { display: none; }
+
+/* Background grid */
+#intro::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245,200,66,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,200,66,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: gridPulse 4s ease-in-out infinite;
+}
+@keyframes gridPulse {
+  0%,100% { opacity: .6; }
+  50%      { opacity: 1; }
+}
+
+/* Radial glow center */
+#intro::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 45% at 50% 50%,
+    rgba(245,200,66,.08) 0%, rgba(59,130,246,.05) 40%, transparent 70%);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%,100% { transform: scale(1); opacity: .8; }
+  50%      { transform: scale(1.1); opacity: 1; }
+}
+
+/* ─── Main isometric scene wrapper ─── */
+.intro-scene {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0;
+}
+
+/* ─── Isometric platform ─── */
+.iso-platform {
+  position: relative; width: 340px; height: 340px;
+  animation: platformFloat 3.5s ease-in-out infinite;
+}
+@keyframes platformFloat {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* ─── Stage labels ─── */
+.intro-stage-label {
+  position: absolute; top: -36px; left: 50%; transform: translateX(-50%);
+  font-family: 'Space Grotesk', sans-serif; font-size: .68rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: rgba(245,200,66,.5);
+  white-space: nowrap; opacity: 0; transition: opacity .4s;
+}
+.intro-stage-label.show { opacity: 1; }
+
+/* ─── Progress bar ─── */
+.intro-progress {
+  width: 220px; height: 2px; background: rgba(255,255,255,.07);
+  border-radius: 2px; margin-top: 28px; overflow: hidden; position: relative; z-index: 2;
+}
+.intro-progress-fill {
+  height: 100%; width: 0; border-radius: 2px;
+  background: linear-gradient(90deg, #f5c842, #f97316);
+  box-shadow: 0 0 8px rgba(245,200,66,.5);
+  transition: width .3s ease;
+}
+
+/* ─── Text below ─── */
+.intro-text {
+  position: relative; z-index: 2;
+  text-align: center; margin-top: 20px;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.intro-title {
+  font-size: clamp(1.3rem, 3.5vw, 1.8rem); font-weight: 800;
+  color: #fff; letter-spacing: -.01em; line-height: 1.2;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .5s, transform .5s;
+}
+.intro-title.show { opacity: 1; transform: translateY(0); }
+.intro-title .y { color: #f5c842; }
+.intro-sub {
+  font-size: .78rem; color: rgba(255,255,255,.45); margin-top: 6px;
+  opacity: 0; transition: opacity .5s .15s;
+}
+.intro-sub.show { opacity: 1; }
+
+/* ─── Skip button ─── */
+.intro-skip {
+  position: absolute; bottom: 28px; right: 28px; z-index: 3;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px; padding: 7px 18px;
+  font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.45);
+  cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif;
+  transition: all .2s;
+}
+.intro-skip:hover { background: rgba(245,200,66,.1); border-color: rgba(245,200,66,.3); color: #f5c842; }
+
+/* ─── Particles container ─── */
+.intro-particles {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  overflow: hidden;
+}
+.p-dot {
+  position: absolute; border-radius: 50%;
+  animation: pFloat linear infinite;
+}
+@keyframes pFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: .6; }
+  100% { transform: translateY(-120vh) scale(.4); opacity: 0; }
+}
+
+/* ─── Electric bolt burst (stage 3) ─── */
+.bolt-ring {
+  position: absolute; top: 50%; left: 50%;
+  width: 200px; height: 200px;
+  transform: translate(-50%,-50%) scale(0);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,200,66,.35) 0%, rgba(245,200,66,.1) 40%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  transition: transform .4s cubic-bezier(.2, 1.6, .4, 1), opacity .4s;
+  opacity: 0;
+}
+.bolt-ring.burst {
+  transform: translate(-50%,-50%) scale(2.2);
+  opacity: 1;
+}
+.bolt-ring.fade {
+  opacity: 0;
+  transform: translate(-50%,-50%) scale(3);
+}
+
+/* ─── Isometric turbine SVG key-frame animations ─── */
+@keyframes bladeSpin { to { transform: rotate(360deg); } }
+@keyframes towerRise {
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes platformIn {
+  from { transform: scale(.85) rotateX(5deg); opacity: 0; }
+  to   { transform: scale(1) rotateX(0deg); opacity: 1; }
+}
+@keyframes boltFlash {
+  0%,100% { opacity: 0; transform: scale(.8) rotate(-5deg); }
+  30%,70% { opacity: 1; transform: scale(1.1) rotate(3deg); }
+  50%      { opacity: .8; transform: scale(1) rotate(0deg); }
+}
+@keyframes cableFlow {
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes glowPulseEl {
+  0%,100% { filter: drop-shadow(0 0 6px rgba(245,200,66,.5)); }
+  50%      { filter: drop-shadow(0 0 18px rgba(245,200,66,.9)); }
+}
+@keyframes cityLight {
+  0%,100% { opacity: .3; }
+  50%      { opacity: .85; }
+}
+@keyframes sparkle {
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  40%  { opacity: 1; transform: scale(1.2) rotate(180deg); }
+  100% { opacity: 0; transform: scale(0) rotate(360deg); }
+}
+@keyframes waveFlow {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+</style>
 </head>
 <body>
+
+<!-- ============================================================
+     INTRO ANIMATION SCREEN
+     ============================================================ -->
+<div id="intro">
+
+  <!-- Floating particles -->
+  <div class="intro-particles" id="intro-particles"></div>
+
+  <!-- Bolt ring burst -->
+  <div class="bolt-ring" id="bolt-ring"></div>
+
+  <!-- Main scene -->
+  <div class="intro-scene">
+
+    <!-- Stage label -->
+    <div class="intro-stage-label" id="stage-label">Memuat Materi...</div>
+
+    <!-- Isometric SVG illustration -->
+    <div class="iso-platform" id="iso-platform">
+      <svg id="intro-svg" viewBox="0 0 340 340" width="340" height="340" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
+        <defs>
+          <!-- Isometric ground gradient -->
+          <linearGradient id="groundTop" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0e1f3a"/>
+            <stop offset="100%" stop-color="#0a1628"/>
+          </linearGradient>
+          <linearGradient id="groundLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#071020"/>
+            <stop offset="100%" stop-color="#0c1a30"/>
+          </linearGradient>
+          <linearGradient id="groundRight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#0c1a30"/>
+            <stop offset="100%" stop-color="#071020"/>
+          </linearGradient>
+          <!-- Electric yellow glow filter -->
+          <filter id="elecGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+          <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="5" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+          <!-- Cable dash -->
+          <marker id="cEnd" markerWidth="4" markerHeight="4" refX="2" refY="2" orient="auto">
+            <circle cx="2" cy="2" r="1.5" fill="#f5c842"/>
+          </marker>
+        </defs>
+
+        <!-- ── Isometric base platform ── -->
+        <!-- Top face -->
+        <polygon points="170,60 310,140 170,220 30,140" fill="url(#groundTop)" stroke="rgba(245,200,66,.08)" stroke-width="1"
+          style="animation: platformIn .8s ease forwards; opacity:0;"/>
+        <!-- Left face -->
+        <polygon points="30,140 170,220 170,270 30,190" fill="url(#groundLeft)" stroke="rgba(245,200,66,.05)" stroke-width="1"
+          style="animation: platformIn .8s .1s ease forwards; opacity:0;"/>
+        <!-- Right face -->
+        <polygon points="310,140 170,220 170,270 310,190" fill="url(#groundRight)" stroke="rgba(245,200,66,.05)" stroke-width="1"
+          style="animation: platformIn .8s .1s ease forwards; opacity:0;"/>
+
+        <!-- ── Ground grid lines (isometric) ── -->
+        <g opacity=".12" stroke="#f5c842" stroke-width=".5">
+          <line x1="170" y1="60" x2="30" y2="140"/><line x1="170" y1="60" x2="310" y2="140"/>
+          <!-- horizontal grid -->
+          <line x1="100" y1="100" x2="240" y2="100" opacity=".0"/>
+          <!-- iso grid on top face -->
+          <line x1="100" y1="100" x2="170" y2="140"/><line x1="170" y1="100" x2="240" y2="140"/>
+          <line x1="90" y1="120" x2="250" y2="120" opacity=".0"/>
+        </g>
+
+        <!-- ── Main turbine tower ── -->
+        <g id="iso-tower" style="animation: towerRise .6s .4s ease forwards; opacity:0;">
+          <!-- Tower isometric left face -->
+          <polygon points="160,80 168,76 168,195 160,199" fill="#1a2d4a"/>
+          <!-- Tower isometric right face -->
+          <polygon points="168,76 178,80 178,199 168,195" fill="#162438"/>
+          <!-- Tower isometric top edge -->
+          <polygon points="158,80 168,75 178,80 168,85" fill="#2a3f5e"/>
+
+          <!-- Nacelle (isometric box) -->
+          <polygon points="148,70 168,60 188,70 168,80" fill="#2a4060"/>
+          <polygon points="148,70 148,82 168,92 168,80" fill="#1e3050"/>
+          <polygon points="188,70 188,82 168,92 168,80" fill="#162640"/>
+
+          <!-- Hub center -->
+          <ellipse cx="162" cy="72" rx="5" ry="5" fill="#f5c842" filter="url(#elecGlow)"/>
+
+          <!-- Blades (3 blades isometric, animating) -->
+          <g id="iso-blades" style="transform-origin:162px 72px; animation: bladeSpin 2.5s linear infinite;">
+            <!-- Blade 1 - up -->
+            <polygon points="162,72 158,30 166,30" fill="#dde8f5" opacity=".92"/>
+            <!-- Blade 2 - lower left -->
+            <polygon points="162,72 122,96 125,104" fill="#c8d8ee" opacity=".85" transform="rotate(120,162,72)"/>
+            <!-- Blade 3 - lower right -->
+            <polygon points="162,72 122,96 125,104" fill="#b8ccdf" opacity=".78" transform="rotate(240,162,72)"/>
+          </g>
+          <!-- Hub dot on top of blades -->
+          <circle cx="162" cy="72" r="4" fill="#f5c842"/>
+        </g>
+
+        <!-- ── Power cable (drawn after stage 2) ── -->
+        <g id="iso-cable" opacity="0" style="transition: opacity .5s;">
+          <path d="M178 82 Q220 110 240 150 Q250 175 240 190"
+            fill="none" stroke="#f5c842" stroke-width="2.5" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"
+            id="cable-path" style="animation: none;"/>
+          <!-- Cable glow -->
+          <path d="M178 82 Q220 110 240 150 Q250 175 240 190"
+            fill="none" stroke="rgba(245,200,66,.25)" stroke-width="6" stroke-dasharray="200" stroke-dashoffset="200" stroke-linecap="round"
+            id="cable-glow-path"/>
+        </g>
+
+        <!-- ── Mini city / power receiver (appears stage 3) ── -->
+        <g id="iso-city" opacity="0" style="transition: opacity .6s; transform-origin: 240px 195px;">
+          <!-- Building 1 -->
+          <polygon points="225,175 235,169 245,175 245,200 225,200" fill="#0e1f3a" stroke="rgba(245,200,66,.15)" stroke-width="1"/>
+          <polygon points="235,169 245,175 245,165 235,159" fill="#162640"/>
+          <polygon points="225,175 235,169 235,159 225,165" fill="#1a2d4a"/>
+          <!-- Building windows lit -->
+          <rect x="228" y="180" width="4" height="4" rx="1" fill="#f5c842" opacity=".7" style="animation: cityLight 1.5s .2s ease-in-out infinite;"/>
+          <rect x="234" y="180" width="4" height="4" rx="1" fill="#f5c842" opacity=".5" style="animation: cityLight 1.5s .6s ease-in-out infinite;"/>
+          <rect x="228" y="188" width="4" height="4" rx="1" fill="#f5c842" opacity=".6" style="animation: cityLight 1.5s .4s ease-in-out infinite;"/>
+          <rect x="234" y="188" width="4" height="4" rx="1" fill="#f5c842" opacity=".4" style="animation: cityLight 1.5s .9s ease-in-out infinite;"/>
+
+          <!-- Building 2 (smaller) -->
+          <polygon points="248,185 256,181 264,185 264,205 248,205" fill="#0c1828" stroke="rgba(245,200,66,.1)" stroke-width="1"/>
+          <polygon points="256,181 264,185 264,178 256,174" fill="#11202e"/>
+          <rect x="251" y="191" width="3" height="3" rx=".5" fill="#f5c842" opacity=".8" style="animation: cityLight 1.5s .3s ease-in-out infinite;"/>
+          <rect x="256" y="191" width="3" height="3" rx=".5" fill="#f5c842" opacity=".45" style="animation: cityLight 1.5s .7s ease-in-out infinite;"/>
+          <rect x="251" y="197" width="3" height="3" rx=".5" fill="#f5c842" opacity=".6" style="animation: cityLight 1.5s .1s ease-in-out infinite;"/>
+
+          <!-- Electric pole + wire -->
+          <line x1="215" y1="165" x2="215" y2="200" stroke="#475569" stroke-width="1.5"/>
+          <line x1="210" y1="172" x2="220" y2="172" stroke="#475569" stroke-width="1"/>
+          <line x1="215" y1="172" x2="228" y2="178" stroke="#f5c842" stroke-width="1" stroke-dasharray="3,2" opacity=".7"/>
+        </g>
+
+        <!-- ── Big electric bolt (center, stage 2→3 transition) ── -->
+        <g id="iso-bolt" opacity="0" style="transform-origin: 170px 140px; transition: opacity .3s; animation: boltFlash 1.2s ease-in-out;">
+          <!-- Main bolt shape -->
+          <polygon points="175,100 163,140 172,140 160,180 178,135 168,135"
+            fill="#f5c842" filter="url(#softGlow)"
+            style="animation: glowPulseEl 1s ease-in-out infinite;"/>
+          <!-- Bolt glow backing -->
+          <polygon points="175,100 163,140 172,140 160,180 178,135 168,135"
+            fill="rgba(245,200,66,.3)" style="transform: scale(1.3); transform-origin: 169px 140px;"/>
+        </g>
+
+        <!-- ── Sparkle particles around bolt ── -->
+        <g id="iso-sparkles" opacity="0">
+          <polygon points="140,105 143,115 153,115 145,121 148,131 140,125 132,131 135,121 127,115 137,115"
+            fill="rgba(245,200,66,.7)" style="animation: sparkle 1.5s .1s ease-in-out infinite; transform-origin: 140px 118px;"/>
+          <polygon points="200,125 202,131 208,131 203,135 205,141 200,137 195,141 197,135 192,131 198,131"
+            fill="rgba(245,200,66,.6)" style="animation: sparkle 1.5s .4s ease-in-out infinite; transform-origin: 200px 133px;"/>
+          <polygon points="155,160 157,165 162,165 158,168 160,173 155,170 150,173 152,168 148,165 153,165"
+            fill="rgba(245,200,66,.5)" style="animation: sparkle 1.5s .7s ease-in-out infinite; transform-origin: 155px 167px;"/>
+          <polygon points="185,155 187,160 192,160 188,163 190,168 185,165 180,168 182,163 178,160 183,160"
+            fill="rgba(245,200,66,.65)" style="animation: sparkle 1.5s .2s ease-in-out infinite; transform-origin: 185px 162px;"/>
+        </g>
+
+        <!-- ── Energy wave rings (stage 3) ── -->
+        <g id="iso-waves" opacity="0">
+          <circle cx="170" cy="140" r="30" fill="none" stroke="rgba(245,200,66,.4)" stroke-width="1.5" stroke-dasharray="4,6"
+            style="animation: waveRing 2s .0s linear infinite; transform-origin: 170px 140px;"/>
+          <circle cx="170" cy="140" r="50" fill="none" stroke="rgba(245,200,66,.25)" stroke-width="1" stroke-dasharray="3,7"
+            style="animation: waveRing 2s .5s linear infinite; transform-origin: 170px 140px;"/>
+          <circle cx="170" cy="140" r="70" fill="none" stroke="rgba(245,200,66,.15)" stroke-width="1" stroke-dasharray="2,8"
+            style="animation: waveRing 2s 1s linear infinite; transform-origin: 170px 140px;"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- Progress -->
+    <div class="intro-progress">
+      <div class="intro-progress-fill" id="intro-progress"></div>
+    </div>
+
+    <!-- Title -->
+    <div class="intro-text">
+      <div class="intro-title" id="intro-title">
+        Energi <span class="y">Angin</span> → Listrik
+      </div>
+      <div class="intro-sub" id="intro-sub">
+        Kelompok 6 · X TKJ 1 · SMKN 6 Kota Tangerang Selatan
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Skip -->
+  <button class="intro-skip" onclick="skipIntro()">Lewati →</button>
+</div>
+
+<style>
+@keyframes waveRing {
+  from { transform: scale(.7); opacity: .8; }
+  to   { transform: scale(1.4); opacity: 0; }
+}
+</style>
+<script>
+/* ============================================================
+   INTRO ANIMATION CONTROLLER
+   ============================================================ */
+(function(){
+
+/* ── Prevent scroll during intro ── */
+document.body.style.overflow = 'hidden';
+
+/* ── Spawn floating particles ── */
+const pc = document.getElementById('intro-particles');
+const pColors = ['#f5c842','#3b82f6','#22d3ee','#4ade80','#f97316'];
+for (let i = 0; i < 28; i++) {
+  const d = document.createElement('div');
+  d.className = 'p-dot';
+  const size = Math.random() * 4 + 1.5;
+  const col  = pColors[Math.floor(Math.random() * pColors.length)];
+  d.style.cssText = `
+    width:${size}px; height:${size}px; background:${col};
+    left:${Math.random()*100}%; top:${Math.random()*100+100}%;
+    opacity:.5;
+    animation-duration:${Math.random()*8+6}s;
+    animation-delay:${Math.random()*4}s;
+  `;
+  pc.appendChild(d);
+}
+
+/* ── Stage references ── */
+const tower    = document.getElementById('iso-tower');
+const blades   = document.getElementById('iso-blades');
+const cable    = document.getElementById('iso-cable');
+const cablePth = document.getElementById('cable-path');
+const cableGlw = document.getElementById('cable-glow-path');
+const bolt     = document.getElementById('iso-bolt');
+const sparkles = document.getElementById('iso-sparkles');
+const waves    = document.getElementById('iso-waves');
+const city     = document.getElementById('iso-city');
+const boltRing = document.getElementById('bolt-ring');
+const label    = document.getElementById('stage-label');
+const pbar     = document.getElementById('intro-progress');
+const title    = document.getElementById('intro-title');
+const sub      = document.getElementById('intro-sub');
+const intro    = document.getElementById('intro');
+
+/* ── Progress helper ── */
+function setProgress(pct) {
+  pbar.style.width = pct + '%';
+}
+
+/* ── Show label ── */
+function setLabel(txt) {
+  label.textContent = txt;
+  label.classList.add('show');
+}
+
+/* ── Cable animation ── */
+function animateCable() {
+  cable.style.opacity = '1';
+  const paths = [cablePth, cableGlw];
+  paths.forEach(p => {
+    p.style.animation = 'cableFlow 1s ease forwards';
+    p.style.strokeDashoffset = '200';
+  });
+}
+
+/* ── Dismiss intro ── */
+function dismiss() {
+  document.body.style.overflow = '';
+  intro.classList.add('exit');
+  setTimeout(() => intro.classList.add('gone'), 750);
+}
+
+/* ── Skip ── */
+window.skipIntro = function() { dismiss(); };
+
+/* ── Timeline ── */
+const tl = [
+  /* t=0   */ () => { setLabel('Energi Kinetik Angin...'); setProgress(10); title.classList.add('show'); sub.classList.add('show'); },
+  /* t=600 */ () => { setProgress(28); blades.style.animationDuration = '1.8s'; },
+  /* t=1200*/ () => { setLabel('Angin Memutar Turbin ⚙️'); setProgress(42); },
+  /* t=1800*/ () => { setProgress(56); animateCable(); },
+  /* t=2200*/ () => { setLabel('Energi Mekanik → Generator ⚡'); setProgress(64); },
+  /* t=2600*/ () => {
+    /* Bolt appears */
+    bolt.style.opacity = '1';
+    sparkles.style.opacity = '1';
+    boltRing.classList.add('burst');
+    blades.style.animationDuration = '.8s'; /* speed up */
+    setProgress(75);
+  },
+  /* t=3000*/ () => { setLabel('Generator Menghasilkan Listrik ⚡'); setProgress(82); waves.style.opacity = '1'; },
+  /* t=3500*/ () => {
+    city.style.opacity = '1';
+    boltRing.classList.add('fade');
+    setProgress(90);
+    setLabel('Listrik Mengalir ke Kota 🏙️');
+  },
+  /* t=4000*/ () => { setProgress(100); setLabel('Siap! Memuat Website...'); },
+  /* t=4600*/ () => { dismiss(); },
+];
+
+const delays = [0, 600, 1200, 1800, 2200, 2600, 3000, 3500, 4000, 4600];
+delays.forEach((d, i) => setTimeout(tl[i], d));
+
+})();
+</script>
 
 <!-- ===== NAV ===== -->
 <nav id="topnav">
