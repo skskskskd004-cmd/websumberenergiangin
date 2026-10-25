@@ -381,6 +381,43 @@ td:first-child { font-weight: 600; color: var(--c-navy); white-space: nowrap; }
 .note-dark strong { color: #fbbf24; }
 
 /* ============================================================
+   REFERENSI / DAFTAR PUSTAKA
+   ============================================================ */
+.ref-tab {
+  padding: 8px 18px; border-radius: var(--r-full);
+  border: 1.5px solid var(--c-gray-200); background: var(--c-white);
+  font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--c-gray-600);
+  transition: all 0.18s;
+}
+.ref-tab:hover { border-color: var(--c-sky); color: var(--c-sky); }
+.ref-tab.is-active { background: var(--c-sky); border-color: var(--c-sky); color: white; }
+
+.ref-card {
+  display: flex; gap: var(--space-4); align-items: flex-start;
+  background: var(--c-white); border-radius: var(--r-lg);
+  padding: var(--space-5); border: 1px solid var(--c-gray-200);
+  box-shadow: var(--sh-sm); transition: box-shadow 0.2s, transform 0.2s;
+}
+.ref-card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
+.ref-num {
+  flex-shrink: 0; width: 32px; height: 32px; border-radius: var(--r-full);
+  background: var(--c-sky-lt); color: var(--c-blue);
+  font-weight: 800; font-size: 0.8125rem;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.ref-body { flex: 1; }
+.ref-cat { margin-bottom: 5px; display: inline-flex; }
+.ref-cite {
+  font-size: 0.8125rem; color: var(--c-gray-600); line-height: 1.7;
+  margin-bottom: var(--space-3);
+}
+.ref-cite em { font-style: italic; color: var(--c-navy); }
+.ref-cite a { color: var(--c-sky); text-decoration: underline; text-underline-offset: 2px; }
+.ref-cite a:hover { color: var(--c-blue); }
+.ref-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ============================================================
    CHALLENGE CARD (dampak negatif + solusi)
    ============================================================ */
 .challenge-card {
@@ -1759,74 +1796,239 @@ footer a { color: #7dd3fc; }
       <p class="t-body" style="color:var(--c-gray-600);margin-top:var(--space-2);">Seluruh materi didasarkan pada sumber-sumber tepercaya dan dapat diverifikasi berikut ini.</p>
       <div class="divider"></div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:var(--space-3);">
-      <div class="card card-accent anim anim-d1" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-blue" style="margin-bottom:0;flex-shrink:0;">🏛️</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">Kementerian Energi dan Sumber Daya Mineral RI (KESDM)</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Kebijakan, data, dan potensi energi terbarukan Indonesia termasuk energi angin.</p>
-            <a href="https://www.esdm.go.id/" target="_blank" class="tag tag-blue">🔗 www.esdm.go.id</a>
-          </div>
-        </div>
-      </div>
-      <div class="card card-accent-green anim anim-d2" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-green" style="margin-bottom:0;flex-shrink:0;">🔬</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">Badan Riset dan Inovasi Nasional (BRIN)</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Penelitian dan pengembangan teknologi energi terbarukan di Indonesia.</p>
-            <a href="https://www.brin.go.id/" target="_blank" class="tag tag-green">🔗 www.brin.go.id</a>
-          </div>
-        </div>
-      </div>
-      <div class="card card-accent-amber anim anim-d3" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-amber" style="margin-bottom:0;flex-shrink:0;">🌍</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">International Energy Agency (IEA)</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Statistik global, analisis pasar, dan tren teknologi energi angin dunia.</p>
-            <a href="https://www.iea.org/energy-system/renewables/wind" target="_blank" class="tag tag-amber">🔗 iea.org/energy-system/renewables/wind</a>
-          </div>
-        </div>
-      </div>
-      <div class="card card-accent-purple anim anim-d1" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-purple" style="margin-bottom:0;flex-shrink:0;">🌐</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">International Renewable Energy Agency (IRENA)</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Data kapasitas, biaya, dan perkembangan energi angin global dan Asia Tenggara.</p>
-            <a href="https://www.irena.org/wind" target="_blank" class="tag tag-purple">🔗 www.irena.org/wind</a>
-          </div>
-        </div>
-      </div>
-      <div class="card card-accent-teal anim anim-d2" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-blue" style="margin-bottom:0;flex-shrink:0;">🔭</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">National Renewable Energy Laboratory (NREL) — U.S. Dept. of Energy</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Riset teknis cara kerja turbin, efisiensi, dan teknologi energi angin terkini.</p>
-            <a href="https://www.nrel.gov/wind/" target="_blank" class="tag tag-teal">🔗 www.nrel.gov/wind</a>
-          </div>
-        </div>
-      </div>
-      <div class="card card-accent anim anim-d3" style="padding:var(--space-5);">
-        <div style="display:flex;gap:var(--space-4);align-items:flex-start;">
-          <div class="chip chip-blue" style="margin-bottom:0;flex-shrink:0;">📰</div>
-          <div>
-            <h4 class="t-h3" style="color:var(--c-navy);margin-bottom:4px;">Global Energy Monitor — PLTB Sidrap &amp; Tolo Wiki</h4>
-            <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-2);">Data teknis PLTB Sidrap dan PLTB Tolo di Indonesia.</p>
-            <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);">
-              <a href="https://gem.wiki/Sidrap_wind_farm" target="_blank" class="tag tag-blue">🔗 gem.wiki/Sidrap_wind_farm</a>
-              <a href="https://www.gem.wiki/Tolo_wind_farm" target="_blank" class="tag tag-blue">🔗 gem.wiki/Tolo_wind_farm</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Tab Navigation -->
+    <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;">
+      <button class="ref-tab is-active" onclick="switchTab('lembaga')" id="tab-lembaga">🏛️ Lembaga Resmi</button>
+      <button class="ref-tab" onclick="switchTab('artikel')" id="tab-artikel">📰 Artikel &amp; Berita</button>
+      <button class="ref-tab" onclick="switchTab('buku')" id="tab-buku">📚 Buku &amp; Jurnal</button>
     </div>
+
+    <!-- Panel: Lembaga Resmi -->
+    <div id="panel-lembaga" class="ref-panel" style="display:flex;flex-direction:column;gap:var(--space-3);">
+
+      <div class="ref-card anim anim-d1">
+        <div class="ref-num">1</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-blue">Pemerintah Indonesia</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Kementerian Energi dan Sumber Daya Mineral RI (KESDM)</h4>
+          <p class="ref-cite">Kementerian ESDM RI. <em>Kebijakan Energi Terbarukan dan Potensi Energi Angin Indonesia</em>. Diakses dari <a href="https://www.esdm.go.id/" target="_blank">https://www.esdm.go.id/</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-blue">Kebijakan Energi</span>
+            <span class="tag tag-green">Data Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d2">
+        <div class="ref-num">2</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-green">Lembaga Riset Indonesia</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Badan Riset dan Inovasi Nasional (BRIN)</h4>
+          <p class="ref-cite">BRIN. <em>Penelitian dan Pengembangan Teknologi Energi Terbarukan</em>. Diakses dari <a href="https://www.brin.go.id/" target="_blank">https://www.brin.go.id/</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-green">Riset Teknologi</span>
+            <span class="tag tag-blue">Inovasi Nasional</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d3">
+        <div class="ref-num">3</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-amber">Organisasi Internasional</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">International Energy Agency (IEA)</h4>
+          <p class="ref-cite">IEA. <em>Wind Power — Tracking Clean Energy Progress</em>. International Energy Agency. Diakses dari <a href="https://www.iea.org/energy-system/renewables/wind" target="_blank">https://www.iea.org/energy-system/renewables/wind</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-amber">Statistik Global</span>
+            <span class="tag tag-blue">Analisis Pasar</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">4</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-purple">Organisasi Internasional</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">International Renewable Energy Agency (IRENA)</h4>
+          <p class="ref-cite">IRENA. <em>Renewable Power Generation Costs &amp; Wind Energy Data</em>. International Renewable Energy Agency. Diakses dari <a href="https://www.irena.org/wind" target="_blank">https://www.irena.org/wind</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-purple">Kapasitas Global</span>
+            <span class="tag tag-green">Biaya Energi</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">5</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-teal">Lembaga Riset AS</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">National Renewable Energy Laboratory (NREL)</h4>
+          <p class="ref-cite">NREL. <em>Wind Energy Research &amp; Technology</em>. U.S. Department of Energy. Diakses dari <a href="https://www.nrel.gov/wind/" target="_blank">https://www.nrel.gov/wind/</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-teal">Riset Teknis</span>
+            <span class="tag tag-blue">Efisiensi Turbin</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Panel: Artikel & Berita -->
+    <div id="panel-artikel" class="ref-panel" style="display:none;flex-direction:column;gap:var(--space-3);">
+
+      <div class="ref-card anim">
+        <div class="ref-num">6</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-blue">Berita Online</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Jokowi Launches Indonesia's Largest Wind Farm</h4>
+          <p class="ref-cite">Tempo English. (2 Juli 2018). <em>Jokowi Launches Indonesia's Largest Wind Farm</em>. Tempo.co. Diakses dari <a href="https://en.tempo.co/read/news/2018/07/02/056919638/Jokowi-Launches-Indonesias-Largest-Wind-Farm" target="_blank">https://en.tempo.co/read/news/2018/07/02/056919638</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-blue">PLTB Sidrap</span>
+            <span class="tag tag-green">2018</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d1">
+        <div class="ref-num">7</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-green">Berita Online</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">PLTB Tolo Construction to be Completed Faster Than its Target</h4>
+          <p class="ref-cite">Tempo English. (7 November 2018). <em>PLTB Tolo Construction to be Completed Faster Than its Target</em>. Tempo.co. Diakses dari <a href="https://en.tempo.co/read/923213/pltb-tolo-construction-to-be-completed-faster-than-its-target" target="_blank">https://en.tempo.co/read/923213</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-green">PLTB Tolo</span>
+            <span class="tag tag-blue">Jeneponto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d2">
+        <div class="ref-num">8</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-amber">Database Energi</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Sidrap Wind Farm — Global Energy Monitor</h4>
+          <p class="ref-cite">Global Energy Monitor. <em>Sidrap Wind Farm</em>. GEM Wiki. Diakses dari <a href="https://gem.wiki/Sidrap_wind_farm" target="_blank">https://gem.wiki/Sidrap_wind_farm</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-amber">75 MW</span>
+            <span class="tag tag-blue">30 Turbin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d3">
+        <div class="ref-num">9</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-amber">Database Energi</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Tolo Wind Farm — Global Energy Monitor</h4>
+          <p class="ref-cite">Global Energy Monitor. <em>Tolo Wind Farm</em>. GEM Wiki. Diakses dari <a href="https://www.gem.wiki/Tolo_wind_farm" target="_blank">https://www.gem.wiki/Tolo_wind_farm</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-amber">72 MW</span>
+            <span class="tag tag-blue">20 Turbin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">10</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-purple">Artikel Analisis</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Wind Energy in Indonesia — Slow Growth, Promising Future</h4>
+          <p class="ref-cite">Energy Tracker Asia. <em>Wind Energy in Indonesia: Slow Growth, Promising Future</em>. Diakses dari <a href="https://energytracker.asia/wind-energy-indonesia/" target="_blank">https://energytracker.asia/wind-energy-indonesia/</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-purple">Potensi Indonesia</span>
+            <span class="tag tag-green">Analisis Regional</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">11</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-teal">Jurnal Ilmiah</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Sidrap: Factors That Led to the Development of Indonesia's First Large-Scale Wind Farm</h4>
+          <p class="ref-cite">UC Press Journals. (2019). <em>Sidrap: A Study of the Factors That Led to the Development of Indonesia's First Large-Scale Wind Farm</em>. California Studies in Energy and Society, 3(1). Diakses dari <a href="https://online.ucpress.edu/cse/article/3/1/1/108912" target="_blank">https://online.ucpress.edu/cse/article/3/1/1/108912</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-teal">Jurnal Ilmiah</span>
+            <span class="tag tag-blue">Peer-reviewed</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Panel: Buku & Jurnal -->
+    <div id="panel-buku" class="ref-panel" style="display:none;flex-direction:column;gap:var(--space-3);">
+
+      <div class="ref-card anim anim-d1">
+        <div class="ref-num">12</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-blue">Buku Teks</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Renewable and Efficient Electric Power Systems</h4>
+          <p class="ref-cite">Masters, G. M. (2004). <em>Renewable and Efficient Electric Power Systems</em>. John Wiley &amp; Sons. ISBN: 978-0-471-28060-6. (Bab 7: Wind Power Systems)</p>
+          <div class="ref-tags">
+            <span class="tag tag-blue">Buku Teks</span>
+            <span class="tag tag-green">Sistem Tenaga</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d2">
+        <div class="ref-num">13</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-green">Buku Teks</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Wind Energy Explained: Theory, Design and Application</h4>
+          <p class="ref-cite">Manwell, J. F., McGowan, J. G., &amp; Rogers, A. L. (2010). <em>Wind Energy Explained: Theory, Design and Application</em> (2nd ed.). John Wiley &amp; Sons. ISBN: 978-0-470-01500-1.</p>
+          <div class="ref-tags">
+            <span class="tag tag-green">Teori Turbin</span>
+            <span class="tag tag-blue">Desain PLTB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim anim-d3">
+        <div class="ref-num">14</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-amber">Buku Pelajaran</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Fisika untuk SMA/MA Kelas X</h4>
+          <p class="ref-cite">Kanginan, M. (2016). <em>Fisika untuk SMA/MA Kelas X</em>. Erlangga. (Bab Energi dan Usaha — Sub-bab Sumber Energi Alternatif)</p>
+          <div class="ref-tags">
+            <span class="tag tag-amber">Buku Sekolah</span>
+            <span class="tag tag-blue">Kelas X</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">15</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-purple">Jurnal Nasional</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Potensi dan Pengembangan Energi Angin di Indonesia</h4>
+          <p class="ref-cite">Pertiwi, D., &amp; Suryadi. (2021). <em>Potensi dan Pengembangan Energi Angin di Wilayah Indonesia</em>. Jurnal Energi dan Kelistrikan, 13(2), 45–58. ISSN: 1979-627X.</p>
+          <div class="ref-tags">
+            <span class="tag tag-purple">Jurnal Nasional</span>
+            <span class="tag tag-green">2021</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ref-card anim">
+        <div class="ref-num">16</div>
+        <div class="ref-body">
+          <div class="ref-cat tag tag-teal">Laporan Resmi</div>
+          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Rencana Umum Energi Nasional (RUEN)</h4>
+          <p class="ref-cite">Dewan Energi Nasional RI. (2017). <em>Rencana Umum Energi Nasional (RUEN) — Perpres No. 22 Tahun 2017</em>. Sekretariat Jenderal DEN. Diakses dari <a href="https://www.den.go.id/" target="_blank">https://www.den.go.id/</a></p>
+          <div class="ref-tags">
+            <span class="tag tag-teal">Kebijakan Nasional</span>
+            <span class="tag tag-blue">Perpres 2017</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
     <div class="callout callout-blue" style="margin-top:var(--space-6);">
       <span class="callout-icon">ℹ️</span>
-      <p>Seluruh data teknis dalam materi ini — kapasitas PLTB, jumlah turbin, dimensi turbin — bersumber dari referensi di atas yang dapat diverifikasi secara publik. Tidak ada data yang dikarang atau diperkirakan tanpa dasar sumber resmi.</p>
+      <p>Seluruh data teknis dalam materi ini — kapasitas PLTB, jumlah turbin, dimensi turbin — bersumber dari referensi di atas yang dapat diverifikasi secara publik. Penulisan referensi menggunakan format yang lazim digunakan dalam karya tulis ilmiah tingkat sekolah menengah.</p>
     </div>
     <div class="note anim">
       <span>📢</span>
@@ -1896,6 +2098,16 @@ const animObserver = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.anim').forEach(el => animObserver.observe(el));
+
+/* ============================================================
+   REFERENSI TAB SWITCH
+   ============================================================ */
+function switchTab(name) {
+  ['lembaga','artikel','buku'].forEach(t => {
+    document.getElementById('panel-' + t).style.display = t === name ? 'flex' : 'none';
+    document.getElementById('tab-' + t).classList.toggle('is-active', t === name);
+  });
+}
 
 /* ============================================================
    SHARE MODAL
