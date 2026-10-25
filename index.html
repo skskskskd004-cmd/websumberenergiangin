@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -80,7 +80,6 @@ a { color: inherit; text-decoration: none; }
 /* ============================================================
    TYPOGRAPHY SCALE
    ============================================================ */
-.t-hero  { font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.15; }
 .t-h1    { font-family: var(--font-head); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.2; }
 .t-h2    { font-family: var(--font-head); font-size: clamp(1.2rem, 2.5vw, 1.5rem); font-weight: 700; line-height: 1.3; }
 .t-h3    { font-size: 1rem; font-weight: 700; }
@@ -187,16 +186,80 @@ a { color: inherit; text-decoration: none; }
    SECTION HEADER
    ============================================================ */
 .sec-header { margin-bottom: var(--space-8); }
-.sec-header .eyebrow {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-bottom: var(--space-3);
-}
 .sec-header .divider {
   width: 40px; height: 4px; border-radius: var(--r-full);
   background: linear-gradient(90deg, var(--c-sky), var(--c-green));
   margin-top: var(--space-3);
 }
 .sec-header-white .divider { background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.3)); }
+
+/* h2.t-h1 warna navy default */
+.t-h1.clr-navy { color: var(--c-navy); }
+/* h2.t-h1 warna putih untuk dark sections */
+.t-h1.clr-white { color: white; }
+
+/* ============================================================
+   UTILITY CLASSES — mengganti inline style berulang
+   ============================================================ */
+
+/* Card heading h3.t-h2 di dalam card */
+.card h3.t-h2 { color: var(--c-navy); margin-bottom: var(--space-2); }
+/* Card description p.t-sm di dalam card */
+.card .t-sm   { color: var(--c-gray-600); }
+/* Flex row untuk chip + judul di card */
+.card-icon-row { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+.card-icon-row .chip { margin-bottom: 0; }
+
+/* h4 di dalam ref-card */
+.ref-card h4 { color: var(--c-navy); margin: 6px 0 4px; }
+
+/* Dark glass card — box transparan di bg-navy section */
+.dark-card {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-lg); padding: var(--space-5);
+}
+.dark-card h3 { margin-bottom: var(--space-3); }
+.dark-card h4 { margin-bottom: var(--space-3); }
+
+/* Text helpers untuk dark sections */
+.txt-dark-body  { color: rgba(255,255,255,0.75); font-size: 0.875rem; }
+.txt-dark-muted { color: rgba(255,255,255,0.65); font-size: 0.8rem; }
+.txt-dark-dim   { color: rgba(255,255,255,0.7);  font-size: 0.83rem; }
+
+/* Dark list — li dengan border bawah tipis di bg-navy */
+.dark-list { list-style: none; padding: 0; }
+.dark-list li {
+  position: relative; padding: 8px 0 8px 26px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.875rem; color: rgba(255,255,255,0.8);
+}
+.dark-list li:last-child { border-bottom: none; }
+.dark-list li .chk { position: absolute; left: 0; }
+
+/* Simple list di dark section (tanpa border) */
+.dark-list-sm { list-style: none; padding: 0; }
+.dark-list-sm li { color: rgba(255,255,255,0.7); padding: 5px 0; font-size: 0.83rem; }
+
+/* Factor mini card di s11 */
+.factor-card {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-lg); padding: var(--space-5); text-align: center;
+}
+.factor-card .fi { font-size: 2rem; margin-bottom: var(--space-2); }
+.factor-card h4  { color: #90caf9; font-size: 0.875rem; margin-bottom: var(--space-2); }
+.factor-card p   { color: rgba(255,255,255,0.65); font-size: 0.8rem; }
+
+/* Tab navigation */
+.tab-nav { display: flex; gap: var(--space-2); margin-bottom: var(--space-6); flex-wrap: wrap; }
+/* Ref panel — class-based show/hide (bukan inline display) */
+.ref-panel { display: flex; flex-direction: column; gap: var(--space-3); }
+.ref-panel.is-hidden { display: none; }
+/* Footer share button */
+.btn-link-footer {
+  background: none; border: none; color: #7dd3fc;
+  cursor: pointer; font-size: 0.8125rem; font-family: var(--font-body);
+}
+.btn-link-footer:hover { text-decoration: underline; }
 
 /* ============================================================
    CARDS
@@ -804,7 +867,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 2</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Apa Itu Energi Angin?</h2>
+      <h2 class="t-h1 clr-navy">Apa Itu Energi Angin?</h2>
       <div class="divider"></div>
     </div>
 
@@ -812,12 +875,12 @@ footer a { color: #7dd3fc; }
       <div style="display:flex;flex-direction:column;gap:var(--space-4);">
         <div class="card card-accent anim anim-d1">
           <div class="chip chip-blue">💨</div>
-          <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Definisi</h3>
+          <h3 class="t-h2">Definisi</h3>
           <p class="t-body" style="color:var(--c-gray-600);">Energi angin adalah <strong style="color:var(--c-navy);">energi kinetik</strong> yang berasal dari pergerakan massa udara di atmosfer bumi. Angin terbentuk karena udara bergerak dari daerah bertekanan tinggi ke daerah bertekanan rendah akibat pemanasan permukaan bumi yang tidak merata oleh matahari.</p>
         </div>
         <div class="card card-accent-green anim anim-d2">
           <div class="chip chip-green">♻️</div>
-          <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Mengapa Terbarukan?</h3>
+          <h3 class="t-h2">Mengapa Terbarukan?</h3>
           <p class="t-body" style="color:var(--c-gray-600);">Angin terbentuk secara alami dan terus-menerus selama matahari bersinar dan bumi berputar. Berbeda dengan batu bara yang membutuhkan jutaan tahun untuk terbentuk, angin <strong style="color:var(--c-green);">tidak akan pernah habis</strong> — itulah mengapa disebut energi terbarukan.</p>
         </div>
         <div class="callout callout-blue anim anim-d3">
@@ -889,7 +952,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 3</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Proses Terbentuknya Angin</h2>
+      <h2 class="t-h1 clr-navy">Proses Terbentuknya Angin</h2>
       <div class="divider"></div>
     </div>
 
@@ -972,7 +1035,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 4</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Perjalanan Panjang Energi Angin</h2>
+      <h2 class="t-h1 clr-navy">Perjalanan Panjang Energi Angin</h2>
       <p class="t-body" style="color:var(--c-gray-600);max-width:640px;margin-top:var(--space-2);">Manusia sudah memanfaatkan energi angin selama ribuan tahun — dari kapal layar kuno hingga turbin angin modern penghasil listrik.</p>
       <div class="divider"></div>
     </div>
@@ -1030,7 +1093,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 5</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Cara Kerja PLTB</h2>
+      <h2 class="t-h1 clr-navy">Cara Kerja PLTB</h2>
       <p class="t-body" style="color:var(--c-gray-600);max-width:600px;margin-top:var(--space-2);">Pembangkit Listrik Tenaga Bayu mengubah energi kinetik angin menjadi listrik melalui serangkaian komponen yang bekerja bersama.</p>
       <div class="divider"></div>
     </div>
@@ -1123,49 +1186,49 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-green t-label">Slide 6</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Ragam Pemanfaatan Energi Angin</h2>
+      <h2 class="t-h1 clr-navy">Ragam Pemanfaatan Energi Angin</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-3">
       <div class="card card-accent anim anim-d1">
         <div class="chip chip-blue">🔄</div>
         <div class="tag tag-blue" style="margin-bottom:var(--space-3);">Paling Umum</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Turbin Sumbu Horizontal (HAWT)</h3>
+        <h3 class="t-h2">Turbin Sumbu Horizontal (HAWT)</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Sumbu rotasi sejajar dengan arah angin. Bilah berputar seperti baling-baling pesawat. Jenis paling umum di PLTB dunia.</p>
         <ul class="list-clean"><li>Efisiensi tinggi (35–45%)</li><li>Cocok area terbuka, angin konsisten</li><li>Digunakan di PLTB Sidrap &amp; Tolo</li></ul>
       </div>
       <div class="card card-accent-green anim anim-d2">
         <div class="chip chip-green">🌀</div>
         <div class="tag tag-teal" style="margin-bottom:var(--space-3);">Perkotaan</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Turbin Sumbu Vertikal (VAWT)</h3>
+        <h3 class="t-h2">Turbin Sumbu Vertikal (VAWT)</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Sumbu tegak lurus tanah. Dapat menerima angin dari segala arah. Cocok di lingkungan perkotaan yang anginnya tidak menentu.</p>
         <ul class="list-clean green"><li>Tidak perlu menghadap ke angin</li><li>Kompak, perawatan lebih mudah</li><li>Efisiensi lebih rendah dari HAWT</li></ul>
       </div>
       <div class="card card-accent-amber anim anim-d3">
         <div class="chip chip-amber">⚙️</div>
         <div class="tag tag-amber" style="margin-bottom:var(--space-3);">Tradisional</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Kincir Angin Tradisional</h3>
+        <h3 class="t-h2">Kincir Angin Tradisional</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Digunakan ribuan tahun untuk menggiling biji-bijian dan memompa air. Tidak menghasilkan listrik, tetapi efektif untuk pekerjaan mekanik.</p>
         <ul class="list-clean"><li>Teknologi sederhana &amp; tahan lama</li><li>Ikonik di Belanda &amp; pedesaan Asia</li><li>Warisan budaya &amp; sejarah</li></ul>
       </div>
       <div class="card card-accent anim anim-d1">
         <div class="chip chip-blue">⛵</div>
         <div class="tag tag-blue" style="margin-bottom:var(--space-3);">Transportasi</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Kapal Layar</h3>
+        <h3 class="t-h2">Kapal Layar</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Memanfaatkan dorongan angin pada layar untuk menggerakkan kapal. Salah satu penerapan energi angin tertua dalam sejarah manusia.</p>
         <ul class="list-clean"><li>Nol bahan bakar saat berlayar</li><li>Ramah lingkungan sepenuhnya</li><li>Masih dipakai untuk olahraga &amp; pariwisata</li></ul>
       </div>
       <div class="card card-accent-green anim anim-d2">
         <div class="chip chip-green">💧</div>
         <div class="tag tag-green" style="margin-bottom:var(--space-3);">Pertanian</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Pompa Air Tenaga Angin</h3>
+        <h3 class="t-h2">Pompa Air Tenaga Angin</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Kincir terhubung ke pompa air untuk mengalirkan air tanah ke permukaan tanpa listrik — solusi tepat guna di daerah terpencil.</p>
         <ul class="list-clean green"><li>Tanpa listrik, nol emisi</li><li>Digunakan untuk irigasi pertanian</li><li>Ideal untuk daerah kering &amp; terpencil</li></ul>
       </div>
       <div class="card card-accent-purple anim anim-d3">
         <div class="chip chip-purple">🏗️</div>
         <div class="tag tag-purple" style="margin-bottom:var(--space-3);">Masa Depan</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Turbin Lepas Pantai (Offshore)</h3>
+        <h3 class="t-h2">Turbin Lepas Pantai (Offshore)</h3>
         <p class="t-sm" style="color:var(--c-gray-600);margin-bottom:var(--space-3);">Turbin di atas laut memanfaatkan angin yang lebih kencang dan konsisten dibanding di daratan. Kapasitas sangat besar.</p>
         <ul class="list-clean"><li>Angin lebih kencang &amp; stabil</li><li>Berkembang pesat di Eropa &amp; Asia</li><li>Indonesia berpotensi besar di pesisir</li></ul>
       </div>
@@ -1251,38 +1314,38 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-green t-label">Slide 8</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Manfaat Energi Angin</h2>
+      <h2 class="t-h1 clr-navy">Manfaat Energi Angin</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-3">
       <div class="card card-accent-green anim anim-d1">
         <div class="chip chip-green">🌱</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Bebas Emisi Saat Operasi</h3>
+        <h3 class="t-h2">Bebas Emisi Saat Operasi</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Turbin angin tidak membakar bahan bakar, sehingga tidak menghasilkan CO₂, SO₂, atau partikel berbahaya selama beroperasi menghasilkan listrik.</p>
       </div>
       <div class="card card-accent anim anim-d2">
         <div class="chip chip-blue">🛢️</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Kurangi Fosil</h3>
+        <h3 class="t-h2">Kurangi Fosil</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Setiap kWh listrik dari angin mengurangi kebutuhan batu bara atau gas. Indonesia bisa menghemat cadangan fosil untuk keperluan industri lain.</p>
       </div>
       <div class="card card-accent-amber anim anim-d3">
         <div class="chip chip-amber">🌡️</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Kurangi Emisi GRK</h3>
+        <h3 class="t-h2">Kurangi Emisi GRK</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Dengan menggantikan PLTU batu bara, PLTB membantu mengurangi emisi gas rumah kaca — kontribusi nyata melawan perubahan iklim global.</p>
       </div>
       <div class="card card-accent anim anim-d1">
         <div class="chip chip-blue">💧</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Sumber Air Pertanian</h3>
+        <h3 class="t-h2">Sumber Air Pertanian</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Pompa air tenaga angin mengalirkan air tanah ke permukaan tanpa listrik, sangat berguna untuk irigasi pertanian di daerah terpencil dan kering.</p>
       </div>
       <div class="card card-accent-green anim anim-d2">
         <div class="chip chip-green">♾️</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Tak Terbatas</h3>
+        <h3 class="t-h2">Tak Terbatas</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Selama matahari bersinar dan bumi berputar, angin akan terus ada. Berbeda dengan batu bara yang butuh jutaan tahun terbentuk, angin tidak akan habis.</p>
       </div>
       <div class="card card-accent-purple anim anim-d3">
         <div class="chip chip-purple">💼</div>
-        <h3 class="t-h2" style="color:var(--c-navy);margin-bottom:var(--space-2);">Peluang Kerja Baru</h3>
+        <h3 class="t-h2">Peluang Kerja Baru</h3>
         <p class="t-sm" style="color:var(--c-gray-600);">Industri energi angin membuka lapangan kerja di bidang manufaktur bilah, konstruksi, perawatan turbin, teknik, dan penelitian — sektor yang terus tumbuh.</p>
       </div>
     </div>
@@ -1304,7 +1367,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-green t-label">Slide 9</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Dampak Positif Energi Angin</h2>
+      <h2 class="t-h1 clr-navy">Dampak Positif Energi Angin</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-2" style="gap:var(--space-5);">
@@ -1351,7 +1414,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 10</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Tantangan &amp; Cara Mengatasinya</h2>
+      <h2 class="t-h1 clr-navy">Tantangan &amp; Cara Mengatasinya</h2>
       <p class="t-body" style="color:var(--c-gray-600);margin-top:var(--space-2);max-width:600px;">Tidak ada teknologi yang sempurna. Berikut tantangan nyata energi angin beserta solusi yang sudah diketahui dan diterapkan.</p>
       <div class="divider"></div>
     </div>
@@ -1504,7 +1567,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-green t-label">Slide 12</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Energi Angin di Indonesia 🇮🇩</h2>
+      <h2 class="t-h1 clr-navy">Energi Angin di Indonesia 🇮🇩</h2>
       <p class="t-body" style="color:var(--c-gray-600);margin-top:var(--space-2);">Indonesia sudah membuktikan bahwa energi angin bisa beroperasi dalam skala besar dan menghasilkan listrik nyata untuk rakyat.</p>
       <div class="divider"></div>
     </div>
@@ -1593,7 +1656,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 13</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Perbandingan Energi Angin vs Lainnya</h2>
+      <h2 class="t-h1 clr-navy">Perbandingan Energi Angin vs Lainnya</h2>
       <p class="t-body" style="color:var(--c-gray-600);margin-top:var(--space-2);">Perbandingan objektif berdasarkan data teknis dan lingkungan yang terdokumentasi.</p>
       <div class="divider"></div>
     </div>
@@ -1646,7 +1709,7 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 14</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Penerapan dalam Kehidupan &amp; Praktikum</h2>
+      <h2 class="t-h1 clr-navy">Penerapan dalam Kehidupan &amp; Praktikum</h2>
       <div class="divider"></div>
     </div>
     <div class="grid-4" style="margin-bottom:var(--space-8);">
@@ -1792,25 +1855,25 @@ footer a { color: #7dd3fc; }
   <div class="section-inner anim">
     <div class="slide-badge slide-badge-blue t-label">Slide 17</div>
     <div class="sec-header">
-      <h2 class="t-h1" style="color:var(--c-navy);">Daftar Pustaka</h2>
+      <h2 class="t-h1 clr-navy">Daftar Pustaka</h2>
       <p class="t-body" style="color:var(--c-gray-600);margin-top:var(--space-2);">Seluruh materi didasarkan pada sumber-sumber tepercaya dan dapat diverifikasi berikut ini.</p>
       <div class="divider"></div>
     </div>
     <!-- Tab Navigation -->
-    <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;">
+    <div class="tab-nav">
       <button class="ref-tab is-active" onclick="switchTab('lembaga')" id="tab-lembaga">🏛️ Lembaga Resmi</button>
       <button class="ref-tab" onclick="switchTab('artikel')" id="tab-artikel">📰 Artikel &amp; Berita</button>
       <button class="ref-tab" onclick="switchTab('buku')" id="tab-buku">📚 Buku &amp; Jurnal</button>
     </div>
 
     <!-- Panel: Lembaga Resmi -->
-    <div id="panel-lembaga" class="ref-panel" style="display:flex;flex-direction:column;gap:var(--space-3);">
+    <div id="panel-lembaga" class="ref-panel">
 
       <div class="ref-card anim anim-d1">
         <div class="ref-num">1</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-blue">Pemerintah Indonesia</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Kementerian Energi dan Sumber Daya Mineral RI (KESDM)</h4>
+          <h4 class="t-h3">Kementerian Energi dan Sumber Daya Mineral RI (KESDM)</h4>
           <p class="ref-cite">Kementerian ESDM RI. <em>Kebijakan Energi Terbarukan dan Potensi Energi Angin Indonesia</em>. Diakses dari <a href="https://www.esdm.go.id/" target="_blank">https://www.esdm.go.id/</a></p>
           <div class="ref-tags">
             <span class="tag tag-blue">Kebijakan Energi</span>
@@ -1823,7 +1886,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">2</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-green">Lembaga Riset Indonesia</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Badan Riset dan Inovasi Nasional (BRIN)</h4>
+          <h4 class="t-h3">Badan Riset dan Inovasi Nasional (BRIN)</h4>
           <p class="ref-cite">BRIN. <em>Penelitian dan Pengembangan Teknologi Energi Terbarukan</em>. Diakses dari <a href="https://www.brin.go.id/" target="_blank">https://www.brin.go.id/</a></p>
           <div class="ref-tags">
             <span class="tag tag-green">Riset Teknologi</span>
@@ -1836,7 +1899,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">3</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-amber">Organisasi Internasional</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">International Energy Agency (IEA)</h4>
+          <h4 class="t-h3">International Energy Agency (IEA)</h4>
           <p class="ref-cite">IEA. <em>Wind Power — Tracking Clean Energy Progress</em>. International Energy Agency. Diakses dari <a href="https://www.iea.org/energy-system/renewables/wind" target="_blank">https://www.iea.org/energy-system/renewables/wind</a></p>
           <div class="ref-tags">
             <span class="tag tag-amber">Statistik Global</span>
@@ -1849,7 +1912,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">4</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-purple">Organisasi Internasional</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">International Renewable Energy Agency (IRENA)</h4>
+          <h4 class="t-h3">International Renewable Energy Agency (IRENA)</h4>
           <p class="ref-cite">IRENA. <em>Renewable Power Generation Costs &amp; Wind Energy Data</em>. International Renewable Energy Agency. Diakses dari <a href="https://www.irena.org/wind" target="_blank">https://www.irena.org/wind</a></p>
           <div class="ref-tags">
             <span class="tag tag-purple">Kapasitas Global</span>
@@ -1862,7 +1925,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">5</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-teal">Lembaga Riset AS</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">National Renewable Energy Laboratory (NREL)</h4>
+          <h4 class="t-h3">National Renewable Energy Laboratory (NREL)</h4>
           <p class="ref-cite">NREL. <em>Wind Energy Research &amp; Technology</em>. U.S. Department of Energy. Diakses dari <a href="https://www.nrel.gov/wind/" target="_blank">https://www.nrel.gov/wind/</a></p>
           <div class="ref-tags">
             <span class="tag tag-teal">Riset Teknis</span>
@@ -1874,13 +1937,13 @@ footer a { color: #7dd3fc; }
     </div>
 
     <!-- Panel: Artikel & Berita -->
-    <div id="panel-artikel" class="ref-panel" style="display:none;flex-direction:column;gap:var(--space-3);">
+    <div id="panel-artikel" class="ref-panel is-hidden">
 
       <div class="ref-card anim">
         <div class="ref-num">6</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-blue">Berita Online</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Jokowi Launches Indonesia's Largest Wind Farm</h4>
+          <h4 class="t-h3">Jokowi Launches Indonesia's Largest Wind Farm</h4>
           <p class="ref-cite">Tempo English. (2 Juli 2018). <em>Jokowi Launches Indonesia's Largest Wind Farm</em>. Tempo.co. Diakses dari <a href="https://en.tempo.co/read/news/2018/07/02/056919638/Jokowi-Launches-Indonesias-Largest-Wind-Farm" target="_blank">https://en.tempo.co/read/news/2018/07/02/056919638</a></p>
           <div class="ref-tags">
             <span class="tag tag-blue">PLTB Sidrap</span>
@@ -1893,7 +1956,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">7</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-green">Berita Online</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">PLTB Tolo Construction to be Completed Faster Than its Target</h4>
+          <h4 class="t-h3">PLTB Tolo Construction to be Completed Faster Than its Target</h4>
           <p class="ref-cite">Tempo English. (7 November 2018). <em>PLTB Tolo Construction to be Completed Faster Than its Target</em>. Tempo.co. Diakses dari <a href="https://en.tempo.co/read/923213/pltb-tolo-construction-to-be-completed-faster-than-its-target" target="_blank">https://en.tempo.co/read/923213</a></p>
           <div class="ref-tags">
             <span class="tag tag-green">PLTB Tolo</span>
@@ -1906,7 +1969,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">8</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-amber">Database Energi</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Sidrap Wind Farm — Global Energy Monitor</h4>
+          <h4 class="t-h3">Sidrap Wind Farm — Global Energy Monitor</h4>
           <p class="ref-cite">Global Energy Monitor. <em>Sidrap Wind Farm</em>. GEM Wiki. Diakses dari <a href="https://gem.wiki/Sidrap_wind_farm" target="_blank">https://gem.wiki/Sidrap_wind_farm</a></p>
           <div class="ref-tags">
             <span class="tag tag-amber">75 MW</span>
@@ -1919,7 +1982,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">9</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-amber">Database Energi</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Tolo Wind Farm — Global Energy Monitor</h4>
+          <h4 class="t-h3">Tolo Wind Farm — Global Energy Monitor</h4>
           <p class="ref-cite">Global Energy Monitor. <em>Tolo Wind Farm</em>. GEM Wiki. Diakses dari <a href="https://www.gem.wiki/Tolo_wind_farm" target="_blank">https://www.gem.wiki/Tolo_wind_farm</a></p>
           <div class="ref-tags">
             <span class="tag tag-amber">72 MW</span>
@@ -1932,7 +1995,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">10</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-purple">Artikel Analisis</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Wind Energy in Indonesia — Slow Growth, Promising Future</h4>
+          <h4 class="t-h3">Wind Energy in Indonesia — Slow Growth, Promising Future</h4>
           <p class="ref-cite">Energy Tracker Asia. <em>Wind Energy in Indonesia: Slow Growth, Promising Future</em>. Diakses dari <a href="https://energytracker.asia/wind-energy-indonesia/" target="_blank">https://energytracker.asia/wind-energy-indonesia/</a></p>
           <div class="ref-tags">
             <span class="tag tag-purple">Potensi Indonesia</span>
@@ -1945,7 +2008,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">11</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-teal">Jurnal Ilmiah</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Sidrap: Factors That Led to the Development of Indonesia's First Large-Scale Wind Farm</h4>
+          <h4 class="t-h3">Sidrap: Factors That Led to the Development of Indonesia's First Large-Scale Wind Farm</h4>
           <p class="ref-cite">UC Press Journals. (2019). <em>Sidrap: A Study of the Factors That Led to the Development of Indonesia's First Large-Scale Wind Farm</em>. California Studies in Energy and Society, 3(1). Diakses dari <a href="https://online.ucpress.edu/cse/article/3/1/1/108912" target="_blank">https://online.ucpress.edu/cse/article/3/1/1/108912</a></p>
           <div class="ref-tags">
             <span class="tag tag-teal">Jurnal Ilmiah</span>
@@ -1957,13 +2020,13 @@ footer a { color: #7dd3fc; }
     </div>
 
     <!-- Panel: Buku & Jurnal -->
-    <div id="panel-buku" class="ref-panel" style="display:none;flex-direction:column;gap:var(--space-3);">
+    <div id="panel-buku" class="ref-panel is-hidden">
 
       <div class="ref-card anim anim-d1">
         <div class="ref-num">12</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-blue">Buku Teks</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Renewable and Efficient Electric Power Systems</h4>
+          <h4 class="t-h3">Renewable and Efficient Electric Power Systems</h4>
           <p class="ref-cite">Masters, G. M. (2004). <em>Renewable and Efficient Electric Power Systems</em>. John Wiley &amp; Sons. ISBN: 978-0-471-28060-6. (Bab 7: Wind Power Systems)</p>
           <div class="ref-tags">
             <span class="tag tag-blue">Buku Teks</span>
@@ -1976,7 +2039,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">13</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-green">Buku Teks</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Wind Energy Explained: Theory, Design and Application</h4>
+          <h4 class="t-h3">Wind Energy Explained: Theory, Design and Application</h4>
           <p class="ref-cite">Manwell, J. F., McGowan, J. G., &amp; Rogers, A. L. (2010). <em>Wind Energy Explained: Theory, Design and Application</em> (2nd ed.). John Wiley &amp; Sons. ISBN: 978-0-470-01500-1.</p>
           <div class="ref-tags">
             <span class="tag tag-green">Teori Turbin</span>
@@ -1989,7 +2052,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">14</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-amber">Buku Pelajaran</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Fisika untuk SMA/MA Kelas X</h4>
+          <h4 class="t-h3">Fisika untuk SMA/MA Kelas X</h4>
           <p class="ref-cite">Kanginan, M. (2016). <em>Fisika untuk SMA/MA Kelas X</em>. Erlangga. (Bab Energi dan Usaha — Sub-bab Sumber Energi Alternatif)</p>
           <div class="ref-tags">
             <span class="tag tag-amber">Buku Sekolah</span>
@@ -2002,7 +2065,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">15</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-purple">Jurnal Nasional</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Potensi dan Pengembangan Energi Angin di Indonesia</h4>
+          <h4 class="t-h3">Potensi dan Pengembangan Energi Angin di Indonesia</h4>
           <p class="ref-cite">Pertiwi, D., &amp; Suryadi. (2021). <em>Potensi dan Pengembangan Energi Angin di Wilayah Indonesia</em>. Jurnal Energi dan Kelistrikan, 13(2), 45–58. ISSN: 1979-627X.</p>
           <div class="ref-tags">
             <span class="tag tag-purple">Jurnal Nasional</span>
@@ -2015,7 +2078,7 @@ footer a { color: #7dd3fc; }
         <div class="ref-num">16</div>
         <div class="ref-body">
           <div class="ref-cat tag tag-teal">Laporan Resmi</div>
-          <h4 class="t-h3" style="color:var(--c-navy);margin:6px 0 4px;">Rencana Umum Energi Nasional (RUEN)</h4>
+          <h4 class="t-h3">Rencana Umum Energi Nasional (RUEN)</h4>
           <p class="ref-cite">Dewan Energi Nasional RI. (2017). <em>Rencana Umum Energi Nasional (RUEN) — Perpres No. 22 Tahun 2017</em>. Sekretariat Jenderal DEN. Diakses dari <a href="https://www.den.go.id/" target="_blank">https://www.den.go.id/</a></p>
           <div class="ref-tags">
             <span class="tag tag-teal">Kebijakan Nasional</span>
@@ -2172,3 +2235,4 @@ function showToast(msg) {
 </script>
 </body>
 </html>
+
